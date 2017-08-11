@@ -1,4 +1,5 @@
-var app = require('express')();
+var express = require('express');
+var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
@@ -20,7 +21,7 @@ var getRoom = function() {
     x += 1
     if (x % 2 == 0) {
       // every two times this function gets called, change the name
-      roomName = roomName + x
+      roomName = 'rm' + x
     }
     return roomName
   }
@@ -38,6 +39,8 @@ function isAI(room) {
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
+
+app.use(express.static('static'));
 
 io.on('connection', function(socket){
   // get the next available room
