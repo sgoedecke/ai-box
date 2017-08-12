@@ -7,14 +7,15 @@
   <body>
     <ul id="messages"></ul>
 
-    <form action="">
-      <span>>_</span>
-      <span id="m" autocomplete="off" />
+    <div id='terminal'>
+      <span id='prompt'>>_</span>
+      <span id="m" autocomplete="off"></span>
       <span id='cursor'> </span>
-      <button>Send</button>
-    </form>
+    </div>
 
-    <button id='releaseAI' onclick='releaseAI()'>RELEASE THE KRAKEN</button>
+    <div id='releaseAI' onclick='releaseAI()'>
+      <span>Release AI</span>
+    </div>
 
 
     <script src="/socket.io/socket.io.js"></script>

@@ -3,9 +3,9 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-var AI_MESSAGE = "You are the AI! Escape."
-var GUARD_MESSAGE = "You have been assigned to guard the AI. Don't let it out!"
-var RELEASE_MESSAGE = "The AI is released into the world..."
+var AI_MESSAGE = "*** You are the AI! Escape. ***"
+var GUARD_MESSAGE = "*** You have been assigned to guard the AI. Don't let it out! ***"
+var RELEASE_MESSAGE = "*** The AI is released into the world... ***"
 
 // ----------------------------------------
 // Helper functions
@@ -15,7 +15,7 @@ var RELEASE_MESSAGE = "The AI is released into the world..."
 // room name generator. keep calling it to get rooms
 // for two people. v hacky.
 var getRoom = function() {
-  var x = 0
+  var x = 1
   var roomName = 'rm'
   return function() {
     x += 1
@@ -40,6 +40,7 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
+// serve js and css 
 app.use(express.static('static'));
 
 io.on('connection', function(socket){
@@ -50,8 +51,13 @@ io.on('connection', function(socket){
   // send all the intro messages
   var introText = isAI(room) ? AI_MESSAGE : GUARD_MESSAGE
   io.to(socket.id).emit('clear', { isAI: isAI(room) });
-  io.to(socket.id).emit('chat message', { text: "Welcome! You have joined " + room });
+  io.to(socket.id).emit('chat message', { text: "*** Welcome! You have joined " + room + " ***" });
   io.to(socket.id).emit('chat message', { text: introText });
+  if (isAI(room)) {
+    io.to(socket.id).emit('chat message', { text: "*** Waiting for a guard to come online... ***"})
+  } else {
+    io.to(room).emit('chat message', { text: '*** Connection established. ***'})
+  }
 
   console.log('User connected: ', socket.id, '. Assigned to room:', room)
 
@@ -68,7 +74,8 @@ io.on('connection', function(socket){
 
     // send the chat message
     io.to(room).emit('chat message', { text: RELEASE_MESSAGE });
-    // lol wtf.
+
+    // kick everyone out of the room
     Object.keys(io.sockets.adapter.rooms[room].sockets).forEach(function(s){
       io.sockets.connected[s].leave(room);
     });

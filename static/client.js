@@ -1,26 +1,36 @@
 $(function () {
-var socket = io();
-$('form').submit(function(){
-  socket.emit('chat message', { text: $('#m').val() });
-  $('#m').val('');
-  return false;
-});
+	var socket = io();
 
-socket.on('chat message', function(msg){
-  console.log("MSG", msg.text)
-  $('#messages').append($('<li>').text(msg.text));
-});
+	function submitText(){
+	  socket.emit('chat message', { text: $('#m').text() });
+	  $('#m').text('');
+	};
 
-socket.on('clear', function(msg){
-  $('#messages').empty();
-  $('#releaseAI').attr("hidden", msg.isAI)
-});
+	socket.on('chat message', function(msg){
+	  $('#messages').append($('<li>').text(msg.text));
+	});
 
-$('#releaseAI').click(function() {
-  socket.emit('release message')
-})
+	socket.on('clear', function(msg){
+	  $('#messages').empty();
+	  $('#releaseAI').attr("hidden", !msg.isAI)
+	});
 
-$('html').keydown(function(key) {
-	$('#m').val($('#m').val + key)
-})
+	$('#releaseAI').click(function() {
+	  socket.emit('release message')
+	})
+
+	$('html').keydown(function(e) {
+		if (e.key == "Backspace") {
+			// slice off the last char
+			$('#m').text($('#m').text().slice(0, $('#m').text().length - 1))
+		}
+
+		if (e.key == "Enter") {
+			// submit!
+			submitText()
+		}
+		// ignore non-letter chars, except for spaces
+		if (!e.key.match(/^[a-zA-Z\d\-_.?!,\s]$/)) { return }
+		$('#m').text($('#m').text() + e.key)
+	})
 });
