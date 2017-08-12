@@ -35,6 +35,10 @@ body {
   font-size: 2em;
 }
 
+#blurb > a {
+  color: #20C20E;
+}
+
 #landing-container > * {
   margin: 20px auto 20px auto;
 }
