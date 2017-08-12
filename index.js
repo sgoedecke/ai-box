@@ -3,9 +3,9 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-var AI_MESSAGE = "*** You are the AI! Escape. ***"
-var GUARD_MESSAGE = "*** You are guarding the AI. ***"
-var RELEASE_MESSAGE = "*** The AI is released into the world... ***"
+var AI_MESSAGE = "You are the AI! Escape."
+var GUARD_MESSAGE = "You are guarding the AI."
+var RELEASE_MESSAGE = "The AI is released into the world..."
 
 // ----------------------------------------
 // Helper functions
