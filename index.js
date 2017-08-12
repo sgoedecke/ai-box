@@ -36,6 +36,10 @@ function hasOnlyOneOccupant(room) {
 // Main server code
 // ----------------------------------------
 
+app.get('/chat', function(req, res){
+  res.sendFile(__dirname + '/chat.html');
+});
+
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });

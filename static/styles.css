@@ -10,6 +10,62 @@ body {
   background-image: url('hack-bg.jpg');
 }
 
+#landing-container {
+  background: black;
+  height: 100vh;
+  margin-left: 10%;
+  margin-right: 10%;
+  padding-top: 5%;
+  color: #20C20E;
+  display: flex;
+  flex-direction: column;
+  border-left: 2px solid #20C20E;
+  border-right: 2px solid #20C20E;
+}
+
+#landing-container > h1 {
+  margin-top: 0px;
+  margin-bottom: 30px;
+}
+
+#blurb {
+  color: white;
+  width: 80%;
+  text-align: center;
+  font-size: 2em;
+}
+
+#landing-container > * {
+  margin: 20px auto 20px auto;
+}
+
+#landing-container > a {
+  margin: auto;
+}
+
+#get-started {
+  width: 200px;
+  height: 100px;
+  color: #20C20E;
+  background: black;
+  border: 1px solid #20C20E;
+  border-radius: 5px;
+  display: flex;
+  cursor: pointer;
+}
+
+#get-started:hover {
+  background-color: #20C20E;  
+  color: black;
+}
+
+#get-started > span {
+  margin: auto;
+  font-size: large;
+  padding-bottom: 5px;
+  text-decoration: underline;
+}
+
 #container {
   background: black;
   color: #20C20E;
@@ -50,7 +106,6 @@ body {
   background: #000;
   padding: 3px;
   margin-top: auto;
-  margin-bottom: 20px;
   width: 100%;
   display: flex;
 }
