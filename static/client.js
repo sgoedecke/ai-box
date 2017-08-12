@@ -7,12 +7,14 @@ $(function () {
 	};
 
 	socket.on('chat message', function(msg){
-	  $('#messages').append($('<li>').text(msg.text));
+		var prefix = msg.isAI ? "AI: ": "Guard: "
+		if (msg.systemMessage) { prefix = '~ ' }
+	  $('#messages').append($('<li>').text(prefix + msg.text));
 	});
 
 	socket.on('clear', function(msg){
 	  $('#messages').empty();
-	  $('#releaseAI').attr("hidden", !msg.isAI)
+	  $('#releaseAI').css("display", msg.isAI ? 'none' : 'flex')
 	});
 
 	$('#releaseAI').click(function() {

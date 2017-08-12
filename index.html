@@ -5,7 +5,11 @@
     <link rel="stylesheet" href='styles.css'>
   </head>
   <body>
+  <div id='container'>    
     <ul id="messages"></ul>
+    <div id='releaseAI'>
+      <span>Release AI</span>
+    </div>
 
     <div id='terminal'>
       <span id='prompt'>>_</span>
@@ -13,9 +17,8 @@
       <span id='cursor'> </span>
     </div>
 
-    <div id='releaseAI' onclick='releaseAI()'>
-      <span>Release AI</span>
-    </div>
+
+  </div>
 
 
     <script src="/socket.io/socket.io.js"></script>
